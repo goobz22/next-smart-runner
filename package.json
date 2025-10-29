@@ -31,9 +31,6 @@
   "homepage": "https://github.com/goobz22/next-smart-runner#readme",
   "engines": {
     "node": ">=20.9"
-  },
-  "dependencies": {
-    "@next/env": "^16.0.1"
   }
 }
 

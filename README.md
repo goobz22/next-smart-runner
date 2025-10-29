@@ -6,7 +6,7 @@ Helpers that automatically pick the right Next.js bundler (Turbopack or Webpack)
 
 Next.js 16 uses Turbopack by default, but Turbopack still struggles with linked packages created via `bun link`, `npm link`, or monorepo workspaces. Those symlinks often cause `Module not found: Can't resolve` errors during development and production builds.
 
-`next-smart-runner` inspects your project's `node_modules` for symlinked packages and automatically falls back to Webpack when needed. When everything is local, it keeps the default Turbopack experience.
+`next-smart-runner` inspects your project's `node_modules` for symlinked packages and automatically falls back to Webpack when needed. When everything lives inside `node_modules` without symlinks, it keeps the default Turbopack experience.
 
 ## Installation
 
@@ -32,40 +32,31 @@ Update your `package.json` scripts to call the smart runners instead of `next` d
 }
 ```
 
-- If a symlinked package is detected (defaults to `goobs-frontend`, configurable via `NEXT_SMART_PACKAGE`), we run `next dev --webpack` or `next build --webpack`.
+- If any symlinked packages are detected we run `next dev --webpack` or `next build --webpack`.
 - Otherwise we call the standard `next dev` / `next build`, letting Turbopack handle the workload.
 
-### Customising the watched package(s)
+### Configuring symlink detection
 
-The scripts check for a symlinked `node_modules/goobs-frontend` path by default. Override the package name (or a comma-separated list) via the `NEXT_SMART_PACKAGE` environment variable:
+- By default the runner scans `node_modules` and switches to Webpack if any symlinked packages are found.
+- Restrict the check to specific packages by passing a comma-separated list via the `NEXT_SMART_SYMLINKS` environment variable or the `--symlink(s)` flag:
 
 ```bash
-NEXT_SMART_PACKAGE="goobs-frontend,shared-ui" next-smart-dev
+NEXT_SMART_SYMLINKS="shared-ui,ui-kit" next-smart-dev
+# or
+next-smart-dev --symlinks shared-ui,ui-kit
 ```
 
 ### Windows support
 
 The runners resolve the underlying `next` executable and call it via `node` or `cmd.exe` (on Windows), so they work the same across platforms.
 
-## Publishing
+### CLI flags
 
-1. Initialise a git repository and push it to GitHub:
+Any extra arguments after `--` are forwarded to Next.js as usual:
 
-   ```bash
-   git init
-   git add .
-   git commit -m "feat: initial release"
-   git remote add origin git@github.com:goobz22/next-smart-runner.git
-   git push -u origin main
-   ```
-
-2. Publish the package to npm:
-
-   ```bash
-   npm publish --access public
-   ```
-
-   Make sure you are logged in (`npm login`) and that the package name is available.
+```bash
+next-smart-dev --symlink shared-ui -- --port 4000
+```
 
 ## FAQ
 
@@ -79,7 +70,7 @@ Yes. The scripts inspect the current working directory, so as long as you run th
 
 **What about production builds on CI?**
 
-You can keep Turbopack in CI by running `NEXT_SMART_PACKAGE="" next-smart-build` or call the stock `next build` command. The helpers only change behaviour when a symlink is actually detected.
+You can keep Turbopack in CI by running `NEXT_SMART_SYMLINKS="" next-smart-build` or call the stock `next build` command. The helpers only change behaviour when a symlink is actually detected.
 
 ## License
 
