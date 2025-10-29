@@ -1,12 +1,18 @@
 {
   "name": "next-smart-runner",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "CLI helpers that choose between Turbopack and Webpack for Next.js dev and build commands when working with symlinked local packages.",
   "type": "module",
   "bin": {
     "next-smart-dev": "bin/next-smart-dev.js",
     "next-smart-build": "bin/next-smart-build.js"
   },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
   "exports": {
     "./dev": "./bin/next-smart-dev.js",
     "./build": "./bin/next-smart-build.js"
