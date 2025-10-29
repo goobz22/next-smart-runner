@@ -23,12 +23,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/USER/next-smart-runner.git"
+    "url": "https://github.com/goobz22/next-smart-runner.git"
   },
   "bugs": {
-    "url": "https://github.com/USER/next-smart-runner/issues"
+    "url": "https://github.com/goobz22/next-smart-runner/issues"
   },
-  "homepage": "https://github.com/USER/next-smart-runner#readme",
+  "homepage": "https://github.com/goobz22/next-smart-runner#readme",
   "engines": {
     "node": ">=20.9"
   },

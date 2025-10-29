@@ -55,7 +55,7 @@ The runners resolve the underlying `next` executable and call it via `node` or `
    git init
    git add .
    git commit -m "feat: initial release"
-   git remote add origin git@github.com:YOUR_NAME/next-smart-runner.git
+   git remote add origin git@github.com:goobz22/next-smart-runner.git
    git push -u origin main
    ```
 
