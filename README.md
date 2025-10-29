@@ -58,6 +58,10 @@ Any extra arguments after `--` are forwarded to Next.js as usual:
 next-smart-dev --symlink shared-ui -- --port 4000
 ```
 
+## Why not just tweak `next.config`?
+
+Turbopack deliberately guards against importing files outside of the detected project root, which is why linked dependencies often explode with `Module not found` errors. The core team recommends pointing `experimental.turbo.root` / `turbopack.root` at a higher directory [[#77562](https://github.com/vercel/next.js/issues/77562)], or falling back to `experimental.outputFileTracingRoot` when using `link:` dependencies [[#64472](https://github.com/vercel/next.js/issues/64472)]. Those workarounds only apply when your linked package sits neatly beside the app—and they still fail in many monorepo setups. `next-smart-runner` gives you an immediate escape hatch: it keeps Turbopack when everything resolves, but falls back to Webpack automatically whenever symlinked modules would break the build.
+
 ## FAQ
 
 **Does this replace my Next.js configuration?**
@@ -70,7 +74,7 @@ Yes. The scripts inspect the current working directory, so as long as you run th
 
 **What about production builds on CI?**
 
-You can keep Turbopack in CI by running `NEXT_SMART_SYMLINKS="" next-smart-build` or call the stock `next build` command. The helpers only change behaviour when a symlink is actually detected.
+You can keep Turbopack in CI by calling the stock `next build` command instead of `next-smart-build`. The helpers only switch bundlers when a symlink is detected during the run.
 
 ## License
 

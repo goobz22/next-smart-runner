@@ -1,6 +1,6 @@
 {
   "name": "next-smart-runner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI helpers that choose between Turbopack and Webpack for Next.js dev and build commands when working with symlinked local packages.",
   "type": "module",
   "bin": {
