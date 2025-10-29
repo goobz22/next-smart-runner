@@ -13,6 +13,10 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "exports": {
     "./dev": "./bin/next-smart-dev.js",
     "./build": "./bin/next-smart-build.js"
@@ -39,4 +43,3 @@
     "node": ">=20.9"
   }
 }
-
